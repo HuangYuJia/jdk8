@@ -37,3 +37,28 @@
 - 及早求值
 
 - stream.xxx().yyy().zzz().count()
+
+- max() mix()返回 Optional sum() 返回 int,因为有可能没有最大值和最小值,而没有值的话sum()得出的结果为0
+
+- parallelStream 并行流
+- stream 串行流
+
+- map和flatmap的区别
+- 数组中有多个数组时,map映射的结果还是数组中存在多个数组,而flatMap映射的结果是把数组中的所有数组打平成一个数组并返回该数组
+
+
+- select name from student where age > 20 and address = "beijing" order by age desc;
+- stream和mysql一样都是描述性的语言
+- students.stream().filter(student -> student.getAge() > 20).filter(student -> student.getAddress()
+- .equals("beijing)).sort().forEach(student -> System.out.println(student.getName()));
+
+- 内部迭代: stream 
+- 外部迭代: 传统的for循环 
+
+- 集合关注的是数据与数据存储本身
+- 流关注的则是对数据的计算
+
+- 流与迭代器类似的一点是:流是无法重复使用或消费的
+
+- 中间操作都会返回一个Stream对象,比如说返回Stream<Student>,Stream<Integer>,Stream<String>
+- 终止操作则不会返回Stream类型,可能没有返回值,也可能返回其他类型的单个值

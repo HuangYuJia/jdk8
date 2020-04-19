@@ -1,10 +1,9 @@
 package com.kingsoft.jdk8.Test11_Stream;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import sun.plugin2.gluegen.runtime.StructAccessor;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,6 +54,18 @@ public class StreamTest4 {
         List<String> list3 = stream3.collect(LinkedList::new, LinkedList::add, LinkedList::addAll);
         list3.forEach(System.out::println);
         System.out.println("---------------华丽丽的分割线------------------");
+        Stream<String> stream4 = Stream.of("hello", "world", "helloworld");
+        List<String> list = stream4.collect(Collectors.toCollection(ArrayList::new));
+        list.forEach(System.out::println);
+        System.out.println("---------------华丽丽的分割线------------------");
+        Stream<String> stream5 = Stream.of("hello", "world", "helloworld");
+        Set<String> set = stream5.collect(Collectors.toCollection(TreeSet::new));
+        System.out.println(set.getClass());
+        set.forEach(System.out::println);
+        System.out.println("---------------华丽丽的分割线------------------");
+        Stream<String> stream6 = Stream.of("hello", "world", "boy");
+        String str = stream6.collect(Collectors.joining()).toString();
+        System.out.println(str);
     }
 
 }
