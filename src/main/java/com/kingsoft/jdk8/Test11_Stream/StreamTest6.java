@@ -47,9 +47,9 @@ public class StreamTest6 {
         System.out.println(summaryStatistics.getMin());
         System.out.println("---------------华丽丽的分割线------------------------");
         // Stream<Integer> stream6 = Stream.iterate(1, item -> item + 2).limit(6);
-        // stream has already been operated upon or closed
+        // stream has already been operated upon or closed 重复使用流或者流已经被关闭了
         // System.out.println(stream6);
-        // System.out.println(stream6.filter(item -> item > 2));
+        // System.out.println(stream6.filter(item -> item > 2));  // 重复使用流
         // System.out.println(stream6.distinct());
         System.out.println("---------------华丽丽的分割线------------------------");
         Stream<Integer> stream7 = Stream.iterate(1, item -> item + 2).limit(6);
@@ -58,5 +58,6 @@ public class StreamTest6 {
         System.out.println(stream8);
         Stream<Integer> stream9 = stream8.distinct();
         System.out.println(stream9);
+
     }
 }
