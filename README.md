@@ -1,9 +1,9 @@
 ## jdk8
 - Function默认方法有compose、andThen  接收一个参数返回一个结果
--     compose先计算传入,再计算本身
--     andThen先计算本身,再计算传入
+- compose先计算传入,再计算本身
+- andThen先计算本身,再计算传入
 - BiFunction默认方法只有andThen  接收两个参数返回一个结果
--     andThen先计算本身,再计算传入
+- andThen先计算本身,再计算传入
 
 - 实现类的优先级要比接口的优先级更高一些.
 
@@ -72,3 +72,40 @@
 
 
 - 流的特点:流的短路,和&& || 一样,遇到满足的条件就不往后执行了
+
+- Collector(重点理解)
+- T:流中每个元素的类型
+- A:每次操作的结果容器类型
+- R:最终所得到的汇聚操作的结果返回来的结果类型
+- public interface Collector<T, A, R> 
+- Supplier<A> supplier();
+- BiConsumer<A, T> accumulator();
+- BinaryOperator<A> combiner();
+- Function<A, R> finisher();
+
+- Collector有四个部分类组成的:
+- 一个是supplier用于提供一个结果容器,
+- 一个是accumulator用于不断往结果容器中累加元素,
+- 一个是combiner用于在多线程中合并中间结果,
+- 最后一个可选的finisher用于把一个结果从一个类型转化为另一个类型
+
+
+- paralleStream  多个线程同时操作多个结果容器  调用combinder合并多个结果容器
+- paralleStream + Characteristics CONCURRENT  多个线程同时操作同一个结果容器 不会调用combinder进行合并
+
+- paralleStream + Characteristics CONCURRENT  (记得不要执行边修改边遍历元素的操作)
+- 并发修改异常:一个线程在修改的同时而另一个线程在进行遍历操作(同一个结果容器)
+
+- 处理器数目:1 核总数:4 超线程技术:8(一个核变成2个核) 
+- cpu核心数(包含超线程技术) 
+- 物理4核cpu通过超线程技术得到8核cpu8个线程
+
+- Characteristics IDENTITY_FINISH 会将中间结果进行强制类型转换,转换成结果的R类型,不会调用finish方法,否则会调用finish方法
+- 数据源是无序的就加上Characteristics UNORDERED特性,否则不应该加上
+
+
+- 收集器:
+- 对于Collections静态工厂类来说,其实现一共分为两种情况:
+- 1.通过CollectorImpl来实现
+- 2.通过reducing方法来实现;reducing方法本身又是通过CollectorImpl实现的
+
